@@ -46,7 +46,7 @@ def read_file():
         line_dict = {}
         i = 1
         for item in line_list:
-            line_dict[i] = item
+            line_dict[str(i)] = item
             i += 1
         data.append(line_dict)
     return data
