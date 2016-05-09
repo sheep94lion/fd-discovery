@@ -34,6 +34,26 @@ def merge2node(node1, node2):
     return node
 
 
+def read_file():
+    file = open("data.txt")
+    data = []
+    while 1:
+        line = file.readline()
+        if not line:
+            break
+
+        line_list = line[0:-1].split(',')
+        line_dict = {}
+        i = 1
+        for item in line_list:
+            line_dict[i] = item
+            i += 1
+        data.append(line_dict)
+    return data
+
+data = read_file()
+print data[1]
+print len(data)
 
 
 
