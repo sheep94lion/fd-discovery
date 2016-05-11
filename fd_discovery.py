@@ -10,7 +10,7 @@ def read_file():
         line_dict = {}
         i = 1
         for item in line_list:
-            line_dict[str(i)] = item
+            line_dict[i] = item
             i += 1
         data.append(line_dict)
     return data
@@ -45,4 +45,4 @@ def is_fd(list1, list2, data):
 data = read_file()
 print data[1]
 print len(data)
-print is_fd(['1', '2'], ['4', '5'], data)
+print is_fd([1], [3], data)
