@@ -1,5 +1,5 @@
 def read_file():
-    file = open("data.txt")
+    file = open("test_data.txt")
     data = []
     while 1:
         line = file.readline()
