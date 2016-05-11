@@ -47,11 +47,11 @@ def get_partnum(list, data):
         attr += '+'
     if attr in partition_list:
         l = partition_list[attr]
-        print 'touch'
+        print('touch')
     else:
         l = get_partition(data, list)
         partition_list[attr] = l
-        print 'miss'
+        print('miss')
 
     return l
 

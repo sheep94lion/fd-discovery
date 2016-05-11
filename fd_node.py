@@ -23,14 +23,36 @@ class Level:
             for node in self.nodes:
                 node.rhs_plus = set(alphabet)
         else:
-            self.nodes = generate_next_level(n_level, last_level)
+            self.nodes = generate_next_level(n_level, last_level, alphabet)
 
 
-def generate_next_level(n_level, last_level):
-    candidates = itertools.combinations(last_level.nodes, n_level)
-    candidates_merged = map(merge_nodes, candidates)
-    next_level_nodes = list(filter(lambda n: len(n.attr_set) == n_level, candidates_merged))
+def generate_next_level(n_level, last_level, alphabet):
+    next_level_nodes = []
+    candidates = itertools.combinations(alphabet, n_level)
+    for candidate in candidates:
+        candidate = set(candidate)
+        node = FdNode([])
+        node.attr_set = candidate
+        node.rhs_plus = set(alphabet)
+        for a in candidate:
+            rhs_plus = get_rhs_plus(candidate - {a}, last_level.nodes)
+            node.rhs_plus = node.rhs_plus & rhs_plus
+        if node.rhs_plus != set():
+            next_level_nodes.append(node)
+    #candidates = list(itertools.combinations(last_level.nodes, n_level))
+    #candidates_merged = list(map(merge_nodes, candidates))
+    #next_level_nodes = [x for x in candidates_merged if len(x.attr_set) == n_level]
+    #mid = filter(lambda n: len(n.attr_set) == n_level, candidates_merged)
+    #next_level_nodes = list(filter(lambda n: len(n.attr_set) == n_level, candidates_merged))
     return next_level_nodes
+
+
+def get_rhs_plus(attr_set, nodes):
+    node = next((x for x in nodes if x.attr_set == attr_set), 0)
+    if node != 0:
+        return node.rhs_plus
+    else:
+        return set()
 
 
 def merge_nodes(nodes_list):
@@ -50,6 +72,7 @@ def compute_dependencies_one_level(l, alphabet, data):
     for node in l.nodes:
         candidates = node.rhs_plus & node.attr_set
         for e in candidates:
+            print(node.attr_set)
             if is_fd(list(node.attr_set - {e}), list({e}), data):
                 print(node.attr_set - {e}, e, i)
                 item = sorted(list(node.attr_set - {e}))
