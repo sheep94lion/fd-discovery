@@ -72,9 +72,9 @@ def compute_dependencies_one_level(l, alphabet, data):
     for node in l.nodes:
         candidates = node.rhs_plus & node.attr_set
         for e in candidates:
-            print(node.attr_set)
+            #print(node.attr_set)
             if is_fd(list(node.attr_set - {e}), list({e}), data):
-                print(node.attr_set - {e}, e, i)
+                #print(node.attr_set - {e}, e, i)
                 item = sorted(list(node.attr_set - {e}))
                 item.extend([e])
                 results.append(item)
