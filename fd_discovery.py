@@ -42,6 +42,12 @@ def is_fd(list1, list2, data):
     else:
         return False
 
-
+'''
 data = read_file()
+<<<<<<< HEAD
 print is_fd([1,2], [12], data)
+=======
+print data[1]
+print len(data)
+print is_fd([1], [3], data)
+'''
