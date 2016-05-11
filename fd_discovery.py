@@ -1,12 +1,13 @@
 def read_file():
-    file = open("data.txt")
+    file = open("test_data.txt")
     data = []
     while 1:
         line = file.readline()
         if not line:
             break
-
-        line_list = line[0:-1].split(',')
+        if line[-1] == '\n':
+            line = line[0:-1]
+        line_list = line.split(',')
         line_dict = {}
         i = 1
         for item in line_list:
@@ -43,6 +44,4 @@ def is_fd(list1, list2, data):
 
 
 data = read_file()
-print data[1]
-print len(data)
-print is_fd([1], [3], data)
+print is_fd([1,2], [12], data)
