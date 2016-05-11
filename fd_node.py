@@ -29,7 +29,7 @@ def generate_next_level(n_level, last_level):
 
 
 def merge_nodes(nodes_list):
-    return reduce(merge2node, nodes_list, FdNode([]))
+    return reduce(merge2node, nodes_list, nodes_list[0])
 
 
 def merge2node(node1, node2):
@@ -58,6 +58,10 @@ def compute_dependencies_one_level(l, alphabet):
 def compute_dependencies(alphabet):
     l = [Level(1, alphabet, 0)]
     for i in range(len(alphabet)):
-        l[i] = compute_dependencies_one_level(l[i], alphabet)
+        if i > 0:
+            l[i] = compute_dependencies_one_level(l[i], alphabet)
         if i < len(alphabet) - 1:
             l.append(Level(i + 2, alphabet, l[i]))
+
+if __name__ == "__main__":
+    compute_dependencies([1, 2, 3, 4])
