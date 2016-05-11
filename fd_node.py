@@ -52,7 +52,7 @@ def compute_dependencies_one_level(l, alphabet, data):
         for e in candidates:
             if is_fd(list(node.attr_set - {e}), list({e}), data):
                 print(node.attr_set - {e}, e, i)
-                item = (list(node.attr_set - {e}))
+                item = sorted(list(node.attr_set - {e}))
                 item.extend([e])
                 results.append(item)
                 i += 1
