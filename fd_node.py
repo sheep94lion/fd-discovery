@@ -50,7 +50,9 @@ def compute_dependencies_one_level(l, alphabet, data):
     for node in l.nodes:
         candidates = node.rhs_plus & node.attr_set
         for e in candidates:
+            print("pre")
             if is_fd(list(node.attr_set - {e}), list({e}), data):
+                print("post")
                 print(node.attr_set - {e}, e, i)
                 item = sorted(list(node.attr_set - {e}))
                 item.extend([e])
@@ -58,6 +60,8 @@ def compute_dependencies_one_level(l, alphabet, data):
                 i += 1
                 node.rhs_plus.remove(e)
                 node.rhs_plus = node.rhs_plus - (set(alphabet) - node.attr_set)
+            else:
+                print("post")
     l.nodes = list(filter(lambda n: n.rhs_plus != set(), l.nodes))
     return l
 
