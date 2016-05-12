@@ -47,17 +47,14 @@ def get_partnum(list, data):
         attr += '+'
     if attr in partition_list:
         l = partition_list[attr]
-        print('touch')
     else:
         l = get_partition(data, list)
         partition_list[attr] = l
-        print('miss')
 
     return l
 
 
 def is_fd(list1, list2, data):
-    print('use')
     l1 = get_partnum(list1, data)
     list_union = list(set(list1).union(set(list2)))
     l2 = get_partnum(list_union, data)
