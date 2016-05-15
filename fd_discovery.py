@@ -69,8 +69,3 @@ def is_fd(list1, list2, data):
         return True
     else:
         return False
-
-'''
-data = read_file()
-print (list_len)
-'''

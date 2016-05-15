@@ -1,6 +1,6 @@
 import itertools
 import time
-from functools import reduce
+
 from fd_discovery import *
 
 
@@ -36,23 +36,14 @@ def generate_next_level(n_level, last_level, alphabet):
         node.attr_set = candidate
         node.rhs_plus = set(alphabet)
         for a in candidate:
-            temp = str(candidate - {a})
             try:
-                rhs_plus = last_level.nodes[str(candidate - {a})].rhs_plus
+                rhs_plus = last_level.nodes[str(set(sorted(list(candidate - {a}))))].rhs_plus
             except:
                 rhs_plus = set()
             node.rhs_plus = node.rhs_plus & rhs_plus
         if node.rhs_plus != set():
             next_level_nodes[str(node.attr_set)] = node
     return next_level_nodes
-
-
-def get_rhs_plus(attr_set, nodes):
-    node = next((x for x in nodes if x.attr_set == attr_set), 0)
-    if node != 0:
-        return node.rhs_plus
-    else:
-        return set()
 
 
 def merge_nodes(nodes_list):
