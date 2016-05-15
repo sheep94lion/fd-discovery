@@ -36,7 +36,6 @@ def generate_next_level(n_level, last_level, alphabet):
         node.attr_set = candidate
         node.rhs_plus = set(alphabet)
         for a in candidate:
-            temp = str(candidate - {a})
             try:
                 rhs_plus = last_level.nodes[str(candidate - {a})].rhs_plus
             except:
