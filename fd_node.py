@@ -1,4 +1,5 @@
 import itertools
+import time
 from functools import reduce
 from fd_discovery import *
 
@@ -105,7 +106,10 @@ def output(r):
 
 if __name__ == "__main__":
     global results
+    a = time.time()
     compute_dependencies([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     r = sorted(results)
+    b = time.time()
     output(r)
+    print(b-a)
 
