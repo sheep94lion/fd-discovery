@@ -17,17 +17,17 @@ class Level:
     def __init__(self, n_level, alphabet, last_level):
         self.level = n_level
         if n_level == 1:
-            self.nodes = []
+            self.nodes = dict()
             for c in alphabet:
-                self.nodes.append(FdNode([c]))
-            for node in self.nodes:
-                node.rhs_plus = set(alphabet)
+                self.nodes[str(set([c]))] = FdNode([c])
+            for key in self.nodes:
+                self.nodes[key].rhs_plus = set(alphabet)
         else:
             self.nodes = generate_next_level(n_level, last_level, alphabet)
 
 
 def generate_next_level(n_level, last_level, alphabet):
-    next_level_nodes = []
+    next_level_nodes = dict()
     candidates = itertools.combinations(alphabet, n_level)
     for candidate in candidates:
         candidate = set(candidate)
@@ -35,10 +35,14 @@ def generate_next_level(n_level, last_level, alphabet):
         node.attr_set = candidate
         node.rhs_plus = set(alphabet)
         for a in candidate:
-            rhs_plus = get_rhs_plus(candidate - {a}, last_level.nodes)
+            temp = str(candidate - {a})
+            try:
+                rhs_plus = last_level.nodes[str(candidate - {a})].rhs_plus
+            except:
+                rhs_plus = set()
             node.rhs_plus = node.rhs_plus & rhs_plus
         if node.rhs_plus != set():
-            next_level_nodes.append(node)
+            next_level_nodes[str(node.attr_set)] = node
     return next_level_nodes
 
 
@@ -63,8 +67,8 @@ def merge2node(node1, node2):
 
 def compute_dependencies_one_level(l, alphabet, data):
     global i
-    global results
-    for node in l.nodes:
+    empty_list = []
+    for key,node in l.nodes.items():
         candidates = node.rhs_plus & node.attr_set
         for e in candidates:
             if is_fd(list(node.attr_set - {e}), list({e}), data):
@@ -74,9 +78,13 @@ def compute_dependencies_one_level(l, alphabet, data):
                 i += 1
                 node.rhs_plus.remove(e)
                 node.rhs_plus = node.rhs_plus - (set(alphabet) - node.attr_set)
-            else:
-                print("post")
-    l.nodes = list(filter(lambda n: n.rhs_plus != set(), l.nodes))
+                if node.rhs_plus == set():
+                    empty_list.append(node.attr_set)
+    for key in empty_list:
+        l.nodes.pop(str(key))
+
+            #else:
+                #print("post")
     return l
 
 
