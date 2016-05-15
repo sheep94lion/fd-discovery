@@ -74,9 +74,6 @@ def compute_dependencies_one_level(l, alphabet, data):
                     empty_list.append(node.attr_set)
     for key in empty_list:
         l.nodes.pop(str(key))
-
-            #else:
-                #print("post")
     return l
 
 
