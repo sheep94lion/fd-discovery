@@ -1,13 +1,16 @@
 partition_list = {}
+list_len = 0
 
 
 def read_file():
+    global list_len
     file = open("data.txt")
     data = []
     while 1:
         line = file.readline()
         if not line:
             break
+        list_len += 1
         if line[-1] == '\n':
             line = line[0:-1]
         line_list = line.split(',')
@@ -55,7 +58,10 @@ def get_partnum(list, data):
 
 
 def is_fd(list1, list2, data):
+    global list_len
     l1 = get_partnum(list1, data)
+    if l1 == list_len:
+        return True
     list_union = list(set(list1).union(set(list2)))
     l2 = get_partnum(list_union, data)
 
@@ -66,10 +72,5 @@ def is_fd(list1, list2, data):
 
 '''
 data = read_file()
-<<<<<<< HEAD
-print is_fd([1,2], [12], data)
-=======
-print data[1]
-print len(data)
-print is_fd([1], [3], data)
+print (list_len)
 '''
