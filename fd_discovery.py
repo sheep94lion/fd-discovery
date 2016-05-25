@@ -4,7 +4,7 @@ list_len = 0
 
 def read_file():
     global list_len
-    file = open("data.txt")
+    file = open("testdata_data_split.txt")
     data = []
     while 1:
         line = file.readline()
