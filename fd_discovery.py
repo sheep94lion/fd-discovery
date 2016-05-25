@@ -59,6 +59,7 @@ def is_fd(list1, list2, data):
     l1 = get_partnum(list1, data)
     if l1 == list_len:
         return True
+
     list_union = list(set(list1).union(set(list2)))
     l2 = get_partnum(list_union, data)
 
