@@ -1,4 +1,4 @@
-from fd_discovery import *
+from thirdnf_split import *
 import jaydebeapi
 
 
@@ -36,11 +36,13 @@ def get_create_table_statement(s, i):
 
 def get_insert_statement(i_table, tuple):
     statement = "INSERT INTO table_"+str(i_table)+" VALUES("
-    st_part = ",".join(tuple)
-    statement = statement + st_part + ");"
+    st_part = "','".join(tuple)
+    statement = statement + "'" + st_part + "');"
     print (statement)
     return statement
 
 if __name__ == '__main__':
     file_data = read_file()
-    split_data(file_data, [[1, 2, 3], [1, 4, 5]])
+    schemas = generate_input()
+    print (schemas)
+    split_data(file_data, schemas)

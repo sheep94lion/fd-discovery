@@ -1,4 +1,5 @@
 from bcnf_split import *
+from fd_discovery import read_file
 
 
 def get_candidate(alphabet, fd_dict):
@@ -92,13 +93,9 @@ def third_nf_decomposition(alphabet, fd_dict):
 
 
 def generate_input():
-    fd_dict = read_file()
+    fd_dict = read_result_file()
     result_set = third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12], fd_dict)
     result_list = [list(x) for x in result_set]
     print(result_list)
     return result_list
 
-if __name__ == '__main__':
-    generate_input()
-    #fd_dict = read_file()
-    #third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12], fd_dict)
