@@ -36,31 +36,26 @@ def generate_next_level(n_level, last_level, alphabet):
         node.attr_set = candidate
         node.rhs_plus = set(alphabet)
         for a in candidate:
-            try:
-                rhs_plus = last_level.nodes[str(set(sorted(list(candidate - {a}))))].rhs_plus
-            except:
-                rhs_plus = set()
-            node.rhs_plus = node.rhs_plus & rhs_plus
+            subclass = str(set(sorted(list(candidate - {a}))))
+            if subclass in last_level.nodes:
+                rhs_plus = last_level.nodes[subclass].rhs_plus
+                node.rhs_plus = node.rhs_plus & rhs_plus
+            else:
+                node.rhs_plus = set()
+                break
+            
         if node.rhs_plus != set():
             next_level_nodes[str(node.attr_set)] = node
     return next_level_nodes
 
-
-def merge_nodes(nodes_list):
-    return reduce(merge2node, nodes_list, nodes_list[0])
-
-
-def merge2node(node1, node2):
-    node = FdNode([])
-    node.attr_set = node1.attr_set | node2.attr_set
-    node.rhs_plus = node1.rhs_plus & node2.rhs_plus
-    return node
 
 
 def compute_dependencies_one_level(l, alphabet, data):
     global i
     empty_list = []
     for key,node in l.nodes.items():
+        if node.rhs_plus == set():
+            continue
         candidates = node.rhs_plus & node.attr_set
         for e in candidates:
             if is_fd(list(node.attr_set - {e}), list({e}), data):

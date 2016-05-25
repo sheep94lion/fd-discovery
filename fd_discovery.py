@@ -44,10 +44,7 @@ def get_partition(data, list):
 
 def get_partnum(list, data):
     global partition_list
-    attr = ''
-    for item in sorted(list):
-        attr += str(item)
-        attr += '+'
+    attr = str(sorted(list))
     if attr in partition_list:
         l = partition_list[attr]
     else:
