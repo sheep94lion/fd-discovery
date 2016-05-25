@@ -3,7 +3,7 @@ import jaydebeapi
 
 
 def split_data(file_data, schemas):
-    conn = jaydebeapi.connect('org.hsqldb.jdbcDriver',['jdbc:hsqldb:hsql://localhost/','SA',''],'/home/sheep94lion/Downloads/hsqldb-2.3.3/hsqldb/lib/hsqldb.jar',)
+    conn = jaydebeapi.connect('org.hsqldb.jdbcDriver', ['jdbc:hsqldb:hsql://localhost/', 'SA', ''], '/home/sheep94lion/Downloads/hsqldb-2.3.3/hsqldb/lib/hsqldb.jar',)
     curs = conn.cursor()
     for i, s in enumerate(schemas):
         statement = get_create_table_statement(s, i)
