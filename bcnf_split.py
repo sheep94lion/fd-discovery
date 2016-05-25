@@ -81,7 +81,17 @@ def bcnf_decomposition(alphabet, fd_dict):
     print(result)
     return result
 
-if __name__ == "__main__":
+
+def generate_input():
     fd_dict = read_file()
-    bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12],fd_dict)
+    result_set = bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12], fd_dict)
+    result_list = [list(x) for x in result_set]
+    return result_list
+
+
+
+if __name__ == "__main__":
+    generate_input()
+    #fd_dict = read_file()
+    #bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12],fd_dict)
 
