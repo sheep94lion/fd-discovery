@@ -14,7 +14,11 @@ def split_data(file_data, schemas):
             split_tuple = get_split_tuple(tuple_data, schema)
             statement = get_insert_statement(i, split_tuple)
             print (statement)
-            curs.execute(statement)
+            try:
+                curs.execute(statement)
+            except:
+                pass
+
 
 
 def get_split_tuple(tuple_data, schema):
@@ -33,7 +37,7 @@ def get_create_table_statement(s, i):
     for a in s:
         st_key += "A" + str(a) + ","
     st_key = st_key[:-1]
-    statement += "CONSTRAINT pk PRIMARY KEY ("
+    statement += "PRIMARY KEY ("
     statement += st_key
     statement += "))"
     return statement
@@ -48,6 +52,7 @@ def get_insert_statement(i_table, tuple):
 
 if __name__ == '__main__':
     file_data = read_file()
-    schemas = generate_input()
-    print (schemas)
+    #schemas = generate_input()
+    schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
+    print(schemas)
     split_data(file_data, schemas)
