@@ -4,13 +4,22 @@ from fd_discovery import read_file
 
 def get_candidate(alphabet, fd_dict):
     main_set = set(alphabet)
+    flag = True
     candidate_list = alphabet.copy()
     while True:
-        temp_candidate_list = candidate_list.copy()
-        temp_candidate_list.pop()
-        if attributes_plus_compute(temp_candidate_list, fd_dict) != main_set:
-            return set(candidate_list)
+        flag = True
+        for item in candidate_list:
+            temp_candidate_list = candidate_list.copy()
+            temp_candidate_list.remove(item)
+            print(temp_candidate_list)
+            if attributes_plus_compute(temp_candidate_list, fd_dict) == main_set:
+                flag = False
+                break
+        
+        if flag:
+            break
         candidate_list = temp_candidate_list.copy()
+    return set(candidate_list)
 
 
 def is_extraneous(left_list, right_list, fd_dict):
@@ -42,6 +51,7 @@ def get_canonical_cover(fd_dict):
         for key,item in temp_dict.items():
             if is_extraneous(eval(key), item, fd_dict):
                 break
+        
         if temp_dict == fd_dict:
             break
     #print(fd_dict)
@@ -52,15 +62,16 @@ def third_nf_decomposition(alphabet, fd_dict):
     result = []
     flag = True
     canonical = get_canonical_cover(fd_dict)
+    print(len(canonical))
     i = 0
     for key, item in canonical.items():
+        flag = True
         relation_set = set(eval(key) + item)
         for k in range(1, i+1):
             if relation_set.issubset(result[k-1]):
                 flag = False
                 break
         if flag:
-            flag = True
             i += 1
             result.append(relation_set)
 
@@ -94,8 +105,10 @@ def third_nf_decomposition(alphabet, fd_dict):
 
 def generate_input():
     fd_dict = read_result_file()
-    result_set = third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12], fd_dict)
+    result_set = third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict)
     result_list = [list(x) for x in result_set]
     print(result_list)
     return result_list
 
+if __name__ == '__main__':
+    generate_input()
