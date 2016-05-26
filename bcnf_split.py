@@ -35,8 +35,6 @@ def read_result_file():
 
     #print(fd_dict['[1]'])
     #print(fd_dict)
-    print(len(fd_list))
-    print(len(fd_dict))
     return (fd_dict, fd_list)
 
 
@@ -92,7 +90,6 @@ def bcnf_decomposition(alphabet, fd_dict, fd_list):
         if temp_result == result:
             break
         result = temp_result.copy()
-    print(result)
     return result
 
 

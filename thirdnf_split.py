@@ -11,7 +11,6 @@ def get_candidate(alphabet, fd_dict):
         for item in candidate_list:
             temp_candidate_list = candidate_list.copy()
             temp_candidate_list.remove(item)
-            print(temp_candidate_list)
             if attributes_plus_compute(temp_candidate_list, fd_dict) == main_set:
                 flag = False
                 break
@@ -45,11 +44,11 @@ def is_extraneous(left_list, right_list, fd_dict):
     return False
 
 
-def get_canonical_cover(fd_dict):
+def get_canonical_cover(fd_dict, fd_list):
     while True:
         temp_dict = fd_dict.copy()
-        for key,item in temp_dict.items():
-            if is_extraneous(eval(key), item, fd_dict):
+        for [key,item] in fd_list:
+            if is_extraneous(key, item, fd_dict):
                 break
         
         if temp_dict == fd_dict:
@@ -58,11 +57,10 @@ def get_canonical_cover(fd_dict):
     return fd_dict
 
 
-def third_nf_decomposition(alphabet, fd_dict):
+def third_nf_decomposition(alphabet, fd_dict, fd_list):
     result = []
     flag = True
-    canonical = get_canonical_cover(fd_dict)
-    print(len(canonical))
+    canonical = get_canonical_cover(fd_dict, fd_list)
     i = 0
     for key, item in canonical.items():
         flag = True
@@ -99,13 +97,12 @@ def third_nf_decomposition(alphabet, fd_dict):
         if result == temp_result:
             break
         result = temp_result.copy()
-    print(result)
     return result
 
 
 def generate_input():
     (fd_dict, fd_list) = read_result_file()
-    result_set = third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict)
+    result_set = third_nf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict, fd_list)
     result_list = [list(x) for x in result_set]
     print(result_list)
     return result_list
