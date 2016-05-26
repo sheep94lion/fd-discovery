@@ -26,11 +26,16 @@ def get_split_tuple(tuple_data, schema):
 
 def get_create_table_statement(s, i):
     statement = "CREATE TABLE table_"+str(i)+"("
+    st_key = ""
     for a in s:
         st_part = "A"+str(a)+" varchar(50)"+","
         statement += st_part
-    statement = statement[:-1]
-    statement += ");"
+    for a in s:
+        st_key += "A" + str(a) + ","
+    st_key = st_key[:-1]
+    statement += "CONSTRAINT pk PRIMARY KEY ("
+    statement += st_key
+    statement += "))"
     return statement
 
 
