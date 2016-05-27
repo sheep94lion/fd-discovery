@@ -2,11 +2,11 @@ from thirdnf_split import *
 import jaydebeapi
 
 
-def split_data(file_data, schemas):
+def split_data(file_data, schemas, prefix):
     conn = jaydebeapi.connect('org.hsqldb.jdbcDriver', ['jdbc:hsqldb:hsql://localhost/', 'SA', ''],'/home/sheep94lion/Downloads/hsqldb-2.3.3/hsqldb/lib/hsqldb.jar',)
     curs = conn.cursor()
     for i, s in enumerate(schemas):
-        statement = get_create_table_statement(s, i)
+        statement = get_create_table_statement(s, i, prefix)
         print(statement)
         curs.execute(statement)
     for tuple_data in file_data:
@@ -28,8 +28,8 @@ def get_split_tuple(tuple_data, schema):
     return split_tuple
 
 
-def get_create_table_statement(s, i):
-    statement = "CREATE TABLE table_"+str(i)+"("
+def get_create_table_statement(s, i, prefix):
+    statement = "CREATE TABLE table_" + prefix + str(i) + "("
     st_key = ""
     for a in s:
         st_part = "A"+str(a)+" varchar(50)"+","
@@ -55,4 +55,4 @@ if __name__ == '__main__':
     schemas = bcnf_generate_input()
     #schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
     print(schemas)
-    #split_data(file_data, schemas)
+    #split_data(file_data, schemas, "0")
