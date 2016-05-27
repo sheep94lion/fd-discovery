@@ -3,6 +3,8 @@ def read_result_file():
     global list_len
     file = open("result.txt")
     fd_dict = dict()
+    flag = True
+    fd_list = []
     while 1:
         line = file.readline()
         if not line:
@@ -20,10 +22,20 @@ def read_result_file():
             fd_dict[key] = [fd[-1]]
         else:
             fd_dict[key].append(fd[-1])
+
+        for item in fd_list:
+            flag = True
+            if item[0] == fd[0:-1]:
+                flag = False
+                item[1].append(fd[-1])
+        if flag:
+            fd_list.append([fd[0:-1], [fd[-1]]])
+
+
+
     #print(fd_dict['[1]'])
     #print(fd_dict)
-    print(len(fd_dict))
-    return fd_dict
+    return (fd_dict, fd_list)
 
 
 def get_all_subsets(alphabet):
@@ -55,16 +67,16 @@ def attributes_plus_compute(attr_list, fd_dict):
     return result
 
 
-def bcnf_decomposition(alphabet, fd_dict):
+def bcnf_decomposition(alphabet, fd_dict, fd_list):
     result = [set(alphabet)]
     flag = True
     while True:
         temp_result = result.copy()
-        for key, item in fd_dict.items():
+        for [key, item] in fd_list:
             for set_item in result:
-                set_key = set(eval(key))
+                set_key = set(key)
                 if set_key.issubset(set_item):
-                    key_plus = set_item - attributes_plus_compute(eval(key), fd_dict)
+                    key_plus = set_item - attributes_plus_compute(key, fd_dict)
                     if key_plus != set() and key_plus != set_item - set_key:
                         temp_result.remove(set_item)
                         temp_result.append(key_plus | set_key)
@@ -78,17 +90,16 @@ def bcnf_decomposition(alphabet, fd_dict):
         if temp_result == result:
             break
         result = temp_result.copy()
-    print(result)
     return result
 
 
 def bcnf_generate_input():
-    fd_dict = read_result_file()
-    for i in fd_dict:
-        print(i)
-    result_set = bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict)
-    result_list = [list(x) for x in result_set]
-    return result_list
+    (fd_dict, fd_list) = read_result_file()
+    result_set = bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict, fd_list)
+    return result_set
+    #result_list = [list(x) for x in result_set]
+    #return result_list
+
 
 
 
