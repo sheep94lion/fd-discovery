@@ -84,6 +84,8 @@ def bcnf_decomposition(alphabet, fd_dict):
 
 def bcnf_generate_input():
     fd_dict = read_result_file()
+    for i in fd_dict:
+        print(i)
     result_set = bcnf_decomposition([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], fd_dict)
     result_list = [list(x) for x in result_set]
     return result_list

@@ -52,7 +52,7 @@ def get_insert_statement(i_table, tuple):
 
 if __name__ == '__main__':
     file_data = read_file()
-    #schemas = generate_input()
-    schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
+    schemas = bcnf_generate_input()
+    #schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
     print(schemas)
-    split_data(file_data, schemas)
+    #split_data(file_data, schemas)
