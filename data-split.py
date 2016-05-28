@@ -7,13 +7,13 @@ def split_data(file_data, schemas, prefix):
     curs = conn.cursor()
     for i, s in enumerate(schemas):
         statement = get_create_table_statement(s, i, prefix)
-        print(statement)
+        #print(statement)
         curs.execute(statement)
     for tuple_data in file_data:
         for i, schema in enumerate(schemas):
             split_tuple = get_split_tuple(tuple_data, schema)
-            statement = get_insert_statement(i, split_tuple)
-            print (statement)
+            statement = get_insert_statement(i, split_tuple, prefix)
+            #print (statement)
             try:
                 curs.execute(statement)
             except:
@@ -32,7 +32,7 @@ def get_create_table_statement(s, i, prefix):
     statement = "CREATE TABLE table_" + prefix + str(i) + "("
     st_key = ""
     for a in s:
-        st_part = "A"+str(a)+" varchar(50)"+","
+        st_part = "A"+str(a)+" varchar(100)"+","
         statement += st_part
     for a in s:
         st_key += "A" + str(a) + ","
@@ -43,8 +43,8 @@ def get_create_table_statement(s, i, prefix):
     return statement
 
 
-def get_insert_statement(i_table, tuple):
-    statement = "INSERT INTO table_"+str(i_table)+" VALUES("
+def get_insert_statement(i_table, tuple, prefix):
+    statement = "INSERT INTO table_"+prefix+str(i_table)+" VALUES("
     st_part = "','".join(tuple)
     statement = statement + "'" + st_part + "');"
     print (statement)
@@ -52,7 +52,7 @@ def get_insert_statement(i_table, tuple):
 
 if __name__ == '__main__':
     file_data = read_file()
-    #schemas = generate_input()
-    schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
+    schemas = generate_input()
+    #schemas = [[9,10,11],[13,14,15],[8,1,2,13],[8,2,7],[3,4,5,6,7,8,9,12],[10,12]]
+    split_data(file_data, schemas, "6")
     print(schemas)
-    split_data(file_data, schemas, "0")

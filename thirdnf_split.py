@@ -62,6 +62,7 @@ def third_nf_decomposition(alphabet, fd_dict):
     result = []
     flag = True
     canonical = get_canonical_cover(fd_dict)
+    print(canonical)
     print(len(canonical))
     i = 0
     for key, item in canonical.items():
