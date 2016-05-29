@@ -1,0 +1,5 @@
+"select max(A2) from table_524 where A7 like '575'",
+"select count(A2) from table_54",
+"select count(A2) from table_524 where A7 > 500",
+"select min(A7) from table_55",
+"select min(A3) from table_530"

@@ -1,0 +1,5 @@
+"select max(con_a2) from (select a7, count(A2) as con_a2 from table_524 group by A7)",
+"select min(con_a2) from (select a7, count(A2) as con_a2 from table_524 group by A7)",
+"select min(max_a2) from (select a7, max(A2) as max_a2 from table_524 group by A7)",
+"select A12 from (select A12, max(A7) as max_a7 from table_524 group by A12) where max_a7 > 800",
+"select A12 from (select A12, min(A7) as min_a7 from table_524 group by A12) where min_a7 < 200"

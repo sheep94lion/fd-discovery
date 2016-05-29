@@ -20,7 +20,6 @@ def split_data(file_data, schemas, prefix):
                 pass
 
 
-
 def get_split_tuple(tuple_data, schema):
     split_tuple = []
     for i in schema:

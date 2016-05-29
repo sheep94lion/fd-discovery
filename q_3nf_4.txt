@@ -1,0 +1,5 @@
+"select A12,A10 from table_520 where A10 like 'APO%'",
+"select A2,A9 from table_534 where A9 like '0a_'",
+"select A12,A10 from table_520 where A10 like 'Ag%'",
+"select A14,A6 from table_536 where A6 like '%B%g%'",
+"select A11, A4 from table_531 where A4 like '%ild%'"
