@@ -1,0 +1,5 @@
+"update table_12 set A13 = 'Tsinghua University' where A14 = '1001 George Wallace Dr'",
+"update table_14 set A3 = '100018816' where A4 = 'Albi'",
+"update table_14 set A5 = 'G' where A4 = 'Albi'",
+"update table_11 set A1 = '11' where A4 = 'Butcher'",
+"update table_11 set A1 = '1' where A11 = 'FM'"

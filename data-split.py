@@ -13,7 +13,7 @@ def split_data(file_data, schemas, prefix):
         for i, schema in enumerate(schemas):
             split_tuple = get_split_tuple(tuple_data, schema)
             statement = get_insert_statement(i, split_tuple)
-            print (statement)
+            #print (statement)
             try:
                 curs.execute(statement)
             except:
@@ -32,7 +32,7 @@ def get_create_table_statement(s, i, prefix):
     statement = "CREATE TABLE table_" + prefix + str(i) + "("
     st_key = ""
     for a in s:
-        st_part = "A"+str(a)+" varchar(50)"+","
+        st_part = "A"+str(a)+" varchar(100)"+","
         statement += st_part
     for a in s:
         st_key += "A" + str(a) + ","
@@ -47,12 +47,12 @@ def get_insert_statement(i_table, tuple):
     statement = "INSERT INTO table_"+str(i_table)+" VALUES("
     st_part = "','".join(tuple)
     statement = statement + "'" + st_part + "');"
-    print (statement)
+    #print (statement)
     return statement
 
 if __name__ == '__main__':
     file_data = read_file()
-    schemas = bcnf_generate_input()
-    #schemas = [[12, 11, 4, 5], [1, 2, 12, 9], [8, 11, 12], [2, 11, 4, 12], [11, 12, 5, 6], [9, 12, 6], [1, 2, 3]]
-    print(schemas)
-    #split_data(file_data, schemas, "0")
+    #schemas = bcnf_generate_input()
+    schemas = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
+    #print(schemas)
+    split_data(file_data, schemas, "")

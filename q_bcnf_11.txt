@@ -1,0 +1,5 @@
+["select max(A2) from table_10 where A7 like '%575%'",
+"select count(A2) from table_11",
+"select count(A2) from table_10 where A7 > 500",
+"select min(A7) from table_13",
+"select min(A3) from table_14 where A6 like 'Halina'"]
